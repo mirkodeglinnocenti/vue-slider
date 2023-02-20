@@ -7,8 +7,36 @@ const { createApp } = Vue
 createApp({
 data() {
     return {
-    message: 'Hello Vue!'
+        // array di oggetti 
+        images: [
+        {
+            image: './img/01.webp',
+            title: 'Marvel\'s Spiderman Miles Morale',
+            text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
+        }, {
+            image: './img/02.webp',
+            title: 'Ratchet & Clank: Rift Apart',
+            text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
+        }, {
+            image: './img/03.webp',
+            title: 'Fortnite',
+            text: "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
+        }, {
+            image: './img/04.webp',
+            title: 'Stray',
+            text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
+        }, {
+            image: './img/05.webp',
+            title: "Marvel's Avengers",
+            text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
+        }
+    ],
+    indiceSlideAttiva : 0,
     }
+}, 
+methods: {
+    leftSlide,
+    rightSlide,
 }
 }).mount('#app')
 
@@ -19,52 +47,13 @@ data() {
 
 
 
-
-
-
-
-
-
-
-
-
 // Prendere le slide da html
-const slideBoxElements = document.getElementById('slides');
-// console.log(slideBoxElements);
-
-// Prendere freccia a sinistra
-const leftArrowElement = document.querySelector('.carousel__arrow.arrow-left');
-// Prendere freccia a destra
-const rightArrowElement = document.querySelector('.carousel__arrow.arrow-right');
-
-// Creo la variabile indice che determina a quale slide siamo
-let indiceSlideAttiva = 0;
+// const slideBoxElements = document.getElementById('slides');
+// // console.log(slideBoxElements);
 
 
-// array di oggetti 
-const images = [
-    {
-        image: './img/01.webp',
-        title: 'Marvel\'s Spiderman Miles Morale',
-        text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
-    }, {
-        image: './img/02.webp',
-        title: 'Ratchet & Clank: Rift Apart',
-        text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
-    }, {
-        image: './img/03.webp',
-        title: 'Fortnite',
-        text: "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
-    }, {
-        image: './img/04.webp',
-        title: 'Stray',
-        text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
-    }, {
-        image: './img/05.webp',
-        title: "Marvel's Avengers",
-        text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
-    }
-];
+
+
 
 
 //////////// Ciclo for classico
@@ -95,64 +84,57 @@ const images = [
 
 /////////// forEach
 
-images.forEach((el, i, images) => {
+// images.forEach((el, i, images) => {
     
-    const { image, title, text} = el;
+//     const { image, title, text} = el;
 
-    let slide = `
-    <div class="slide">
-        <img class="position-relative" src="${image}" alt="foto di">
-        <div class="description-box">
-            <h3>${title}</h3>
-            <p>${text}</p>
-        </div>
-    </div>
-    `;
+//     let slide = `
+//     <div class="slide">
+//         <img class="position-relative" src="${image}" alt="foto di">
+//         <div class="description-box">
+//             <h3>${title}</h3>
+//             <p>${text}</p>
+//         </div>
+//     </div>
+//     `;
 
-    slideBoxElements.innerHTML += slide;
+//     slideBoxElements.innerHTML += slide;
 
-})
-
-
-const primaSlide = document.querySelector('.slide');
-// console.log(primaSlide)
-primaSlide.classList.add('active');
+// })
 
 
-const slideElements = document.querySelectorAll('.slide');
-
-console.log(slideElements);
-
-
-// Tasto destra -> avanti
-
-rightArrowElement.addEventListener('click', rightSlide);
+// const primaSlide = document.querySelector('.slide');
+// // console.log(primaSlide)
+// primaSlide.classList.add('active');
 
 
-// // Tasto sinistra -> indietro
+// const slideElements = document.querySelectorAll('.slide');
 
-leftArrowElement.addEventListener('click', leftSlide);
+// console.log(slideElements);
 
 
-// autoplay
-let autoplay = setInterval(rightSlide, 3000);
 
-// Interrompere autoplay quando il mouse entra dentro le slide
-slideBoxElements.addEventListener('mouseenter' , () => {
-    console.log('mouse entrato');
 
-    clearInterval(autoplay);
-    autoplay = undefined;
 
-})
+// // autoplay
+// let autoplay = setInterval(rightSlide, 3000);
 
-// Ripremdere autoplay quando il mouse esce dalle slide
-slideBoxElements.addEventListener('mouseleave' , () => {
-    console.log('mouse uscito');
+// // Interrompere autoplay quando il mouse entra dentro le slide
+// slideBoxElements.addEventListener('mouseenter' , () => {
+//     console.log('mouse entrato');
 
-    autoplay = setInterval(rightSlide, 3000);
+//     clearInterval(autoplay);
+//     autoplay = undefined;
 
-})
+// })
+
+// // Ripremdere autoplay quando il mouse esce dalle slide
+// slideBoxElements.addEventListener('mouseleave' , () => {
+//     console.log('mouse uscito');
+
+//     autoplay = setInterval(rightSlide, 3000);
+
+// })
 
 
 
@@ -165,34 +147,19 @@ slideBoxElements.addEventListener('mouseleave' , () => {
 
 function rightSlide() {
 
-    if (indiceSlideAttiva <  images.length - 1){
-    
-        let slideCorrente = slideElements[indiceSlideAttiva];
-        console.log(slideCorrente);
-        // togliendo la classe active
-        slideCorrente.classList.remove('active');
 
-        indiceSlideAttiva++;
+    if (this.indiceSlideAttiva <  this.images.length - 1){
 
-        let prossimaSlide = slideElements[indiceSlideAttiva];
-        // aggiungiamo la classe active alla seconda slide
-        prossimaSlide.classList.add('active');
+        this.indiceSlideAttiva++;
 
-    } else if (indiceSlideAttiva =  images.length - 1) {
 
-        let slideCorrente = slideElements[indiceSlideAttiva];
-        console.log(slideCorrente);
-        // togliendo la classe active
-        slideCorrente.classList.remove('active');
+    } else if (this.indiceSlideAttiva =  this.images.length - 1) {
 
-        indiceSlideAttiva = 0;
+        this.indiceSlideAttiva = 0;
 
-        let prossimaSlide = slideElements[indiceSlideAttiva];
-        // aggiungiamo la classe active alla seconda slide
-        prossimaSlide.classList.add('active');
     }
 
-    console.log('current slide', indiceSlideAttiva);
+    console.log('current slide', this.indiceSlideAttiva);
 
 
 }
@@ -204,37 +171,19 @@ function rightSlide() {
 
 function leftSlide() {
 
-	console.log('current slide', indiceSlideAttiva);
+	console.log('current slide', this.indiceSlideAttiva);
 
-    if (indiceSlideAttiva > 0){
-    
-    
-        let slideCorrente = slideElements[indiceSlideAttiva];
-        // togliendo la classe active
-        slideCorrente.classList.remove('active');
+    if (this.indiceSlideAttiva > 0){
 
-        indiceSlideAttiva--;
+        this.indiceSlideAttiva--;
 
-        let prossimaSlide = slideElements[indiceSlideAttiva];
-        // aggiungiamo la classe active alla seconda slide
-        prossimaSlide.classList.add('active');
+    } else if (this.indiceSlideAttiva === 0){
 
-    } else if (indiceSlideAttiva === 0){
-    
-    
-        let slideCorrente = slideElements[indiceSlideAttiva];
-        // togliendo la classe active
-        slideCorrente.classList.remove('active');
-
-        indiceSlideAttiva = images.length - 1;
-
-        let prossimaSlide = slideElements[indiceSlideAttiva];
-        // aggiungiamo la classe active alla seconda slide
-        prossimaSlide.classList.add('active');
+        this.indiceSlideAttiva = this.images.length - 1;
 
     }
 
-    console.log('current slide', indiceSlideAttiva);
+    console.log('current slide', this.indiceSlideAttiva);
 
 
 }

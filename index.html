@@ -23,15 +23,21 @@
 
                 <div class="carousel-box">
 
-                    <div id="slides">
+                    <div v-for="(slideImg, index) in images" class="slide" :class="index === indiceSlideAttiva ? 'active' : '' ">
+
+                        <img class="position-relative" :src="slideImg.image" alt="foto slide">
+                        <div class="description-box">
+                            <h3>{{slideImg.title}}</h3>
+                            <p>{{slideImg.text}}</p>
+                        </div>
 
                     </div>
 
-                    <div class="carousel__arrow arrow-left">
+                    <div class="carousel__arrow arrow-left" @click="leftSlide">
                         <i class="fa-solid fa-chevron-left"></i>
                     </div>
               
-                    <div class="carousel__arrow arrow-right">
+                    <div class="carousel__arrow arrow-right" @click="rightSlide">
                         <i class="fa-solid fa-chevron-right"></i>
                     </div> 
 
